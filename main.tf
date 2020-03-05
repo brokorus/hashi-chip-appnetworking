@@ -14,8 +14,8 @@ provider aws {
 }
 
 data "aws_availability_zones" "us-west-1" {
-  state    = "available"
   provider = aws.us-west-1
+  state    = "available"
 }
 
 data "aws_availability_zones" "us-west-2" {
@@ -250,22 +250,22 @@ module "west1_west2_admin_peering" {
   peer_vpc_rts = module.west2_admin_vpc.private_route_table_ids
 }
 
-#module "west1_bastion" {
-#  source                      = "terraform-aws-modules/ec2-instance/aws"
-#  version                     = "~> 2.0"
-#  provider                    = aws.us-west-1
-#  associate_public_ip_address = true
-#  ami                         = "ami-ebd02392"
-#  instance_type               = "t2.micro"
-#  key_name                    = "brokorus-key"
-#  subnet_id                   = "10.4.0.0/24"
-#
-#  tags = {
-#    Terraform   = "true"
-#    Environment = "dev"
-#  }
-#}
-#
+module "west1_bastion" {
+  source                      = "terraform-aws-modules/ec2-instance/aws"
+  version                     = "~> 2.0"
+  provider                    = aws.us-west-1
+  associate_public_ip_address = true
+  ami                         = "ami-ebd02392"
+  instance_type               = "t2.micro"
+  key_name                    = "brokorus-key"
+  subnet_id                   = "10.4.0.0/24"
+
+  tags = {
+    Terraform   = "true"
+    Environment = "dev"
+  }
+}
+
 #module "west2_bastion" {
 #  source                      = "terraform-aws-modules/ec2-instance/aws"
 #  version                     = "~> 2.0"
